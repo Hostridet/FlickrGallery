@@ -22,7 +22,9 @@ class ViewAppBar extends AppBar {
           icon: Icon(Icons.search)
       ),
       IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed("/favourite");
+          },
           icon: Icon(Icons.star)
       ),
       IconButton(

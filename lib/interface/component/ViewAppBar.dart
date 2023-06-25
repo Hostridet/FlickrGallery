@@ -17,7 +17,7 @@ class ViewAppBar extends AppBar {
       IconButton(
           onPressed: () {
             BlocProvider.of<SearchBloc>(context)
-                .add(SetSearchAppBar(text));
+                .add(SetSearchAppBar(""));
           },
           icon: Icon(Icons.search)
       ),

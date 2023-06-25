@@ -35,6 +35,7 @@ class SearchAppBar extends AppBar {
               onPressed: () {
                 BlocProvider.of<SearchBloc>(context)
                     .add(SetViewAppBar(inputController.text, flickrImages, axisCount));
+                inputController.clear();
               },
             ),
             suffixIcon: IconButton(

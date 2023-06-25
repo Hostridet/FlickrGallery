@@ -6,15 +6,14 @@ abstract class SearchState {}
 class SearchInitial extends SearchState {}
 
 class SearchAppBarState extends SearchState {
-  final List<FlickrImage> flickrImages;
+  final String title;
 
-  SearchAppBarState(this.flickrImages);
+  SearchAppBarState(this.title);
 }
 
 class ViewAppBarState extends SearchState {
-  final List<FlickrImage> flickrImages;
   final String title;
   final int axisCount;
 
-  ViewAppBarState(this.title, this.flickrImages, this.axisCount);
+  ViewAppBarState(this.title, this.axisCount);
 }

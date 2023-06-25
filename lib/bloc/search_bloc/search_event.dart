@@ -11,24 +11,15 @@ class SetSearchAppBar extends SearchEvent {
 
 class SetViewAppBar extends SearchEvent {
   final String title;
-  final List<FlickrImage> flickrImages;
   final int axisCount;
 
-  SetViewAppBar(this.title, this.flickrImages, this.axisCount);
+  SetViewAppBar(this.title, this.axisCount);
 }
 
 class SetAxisCount extends SearchEvent {
-  final List<FlickrImage> flickrImages;
   final String title;
   final int axisCount;
 
-  SetAxisCount(this.title, this.flickrImages, this.axisCount);
-}
-
-class UpdateImageEvent extends SearchEvent {
-  final String title;
-  final int axisCount;
-
-  UpdateImageEvent(this.title, this.axisCount);
+  SetAxisCount(this.title, this.axisCount);
 }
 

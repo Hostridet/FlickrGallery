@@ -9,9 +9,8 @@ class ViewAppBar extends AppBar {
   final String text;
   final Icon icon;
   final int axisCount;
-  List<FlickrImage> flickrImages;
 
-  ViewAppBar({Key? key, required this.context, required this.text, required this.axisCount, required this.icon, required this.flickrImages}):super(
+  ViewAppBar({Key? key, required this.context, required this.text, required this.axisCount, required this.icon}):super(
     title: Text(text.isEmpty ? "Не выбрано" : text),
     actions: [
       IconButton(
@@ -30,7 +29,7 @@ class ViewAppBar extends AppBar {
       IconButton(
           onPressed: () {
             BlocProvider.of<SearchBloc>(context)
-                .add(SetAxisCount(text, flickrImages, axisCount));
+                .add(SetAxisCount(text, axisCount));
           },
           icon: icon
       ),

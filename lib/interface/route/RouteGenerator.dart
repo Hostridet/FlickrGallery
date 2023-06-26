@@ -1,8 +1,10 @@
 
 import 'package:flicker/interface/screen/ErrorNavigationScreen.dart';
 import 'package:flicker/interface/screen/FavouriteScreen.dart';
+import 'package:flicker/interface/screen/FullScreenImage.dart';
 import 'package:flicker/interface/screen/HomeScreen.dart';
 import 'package:flicker/interface/screen/SearchScreen.dart';
+import 'package:flicker/model/FlickrImage.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator
@@ -25,6 +27,11 @@ class RouteGenerator
       case '/favourite':
         return CustomPageRoute(
           builder: (context) => const FavouriteScreen(),
+        );
+      case '/view':
+        FlickrImage flickrImage = args as FlickrImage;
+        return CustomPageRoute(
+          builder: (context) => FullScreenImage(flickrImage: flickrImage),
         );
 
       default:

@@ -7,6 +7,9 @@ abstract class FlickrImageDao {
   @Query('SELECT * FROM FlickrImageEntity')
   Future<List<FlickrImageEntity>> getAllImage();
 
+  @Query('SELECT * FROM FlickrImageEntity WHERE id = :id')
+  Stream<FlickrImageEntity?> findImageById(String id);
+
   @insert
   Future<void> insertImage(FlickrImageEntity flickrImage);
 

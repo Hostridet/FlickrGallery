@@ -23,6 +23,7 @@ dev_dependencies:
   floor_generator: ^1.4.2
   build_runner: ^2.1.2
   cached_network_image: ^3.2.3
+  photo_view: ^0.14.0
 
 flutter:
   uses-material-design: true

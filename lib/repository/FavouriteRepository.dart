@@ -22,4 +22,10 @@ class FavouriteRepository {
     final database = await $FloorAppDataBase.databaseBuilder(path).build();
     database.flickrImageDao.deleteImage(FlickrImageEntity.fromModel(flickrImage));
   }
+
+  Future<bool> isFavouriteImage(FlickrImage flickrImage) async {
+    final database = await $FloorAppDataBase.databaseBuilder(path).build();
+    final item = await database.flickrImageDao.findImageById(flickrImage.id).first;
+    return item != null ? true : false;
+  }
 }

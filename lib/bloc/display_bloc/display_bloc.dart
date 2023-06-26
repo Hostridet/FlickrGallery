@@ -22,7 +22,8 @@ class DisplayBloc extends Bloc<DisplayEvent, DisplayState> {
         return;
       }
       try {
-        List<FlickrImage> flickrImages = await _flickrRepository.searchPhotos(event.title, 1, 40);
+        page = 1;
+        List<FlickrImage> flickrImages = await _flickrRepository.searchPhotos(event.title, page, 40);
         if (flickrImages.isEmpty) {
           emit(DisplayErrorState("Ничего не найдено"));
           return;

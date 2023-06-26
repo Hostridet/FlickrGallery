@@ -4,3 +4,9 @@ part of 'favourite_bloc.dart';
 abstract class FavouriteEvent {}
 
 class FavouriteGetEvent extends FavouriteEvent {}
+
+class FavouriteUpgradeEvent extends FavouriteEvent {
+  final FlickrImage flickrImage;
+
+  FavouriteUpgradeEvent(this.flickrImage);
+}

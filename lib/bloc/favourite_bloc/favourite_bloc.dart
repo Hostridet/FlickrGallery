@@ -23,5 +23,15 @@ class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
         emit(FavouriteErrorState("Не удалось загрузить избранное"));
       }
     });
+
+    on<FavouriteUpgradeEvent>((event, emit) async {
+      if (await _favouriteRepository.isFavouriteImage(event.flickrImage)) {
+        _favouriteRepository.deleteImage(event.flickrImage);
+        emit(FavouriteMessageState("Удалено из избранного"));
+        return;
+      }
+      _favouriteRepository.insertImage(event.flickrImage);
+      emit(FavouriteMessageState("Добавлено в избранное"));
+    });
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../model/FlickrImage.dart';
+import 'ImageView.dart';
 
 class GalleryDisplay extends StatefulWidget {
   final String title;
@@ -72,15 +73,7 @@ class _GalleryDisplayState extends State<GalleryDisplay> {
                 crossAxisCount: widget.axisCount,
               ),
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.all(10),
-                  child: CachedNetworkImage(
-                    imageUrl: "https://live.staticflickr.com/${state.flickrImages[index].server}/${state.flickrImages[index].id}_${state.flickrImages[index].secret}.jpg",
-                    placeholder: (context, url) => Container(decoration: BoxDecoration(color: Colors.white54)),
-                    errorWidget: (context, url, error) => Container(decoration: BoxDecoration(color: Colors.white54), child: Icon(Icons.error)),
-                    fit: BoxFit.fill,
-                  ),
-                );
+                return ImageView(flickrImage: state.flickrImages[index]);
               },
             ),
           );

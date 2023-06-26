@@ -104,7 +104,7 @@ class _$FlickrImageDao extends FlickrImageDao {
   _$FlickrImageDao(
     this.database,
     this.changeListener,
-  )   : _queryAdapter = QueryAdapter(database),
+  )   : _queryAdapter = QueryAdapter(database, changeListener),
         _flickrImageEntityInsertionAdapter = InsertionAdapter(
             database,
             'FlickrImageEntity',
@@ -114,7 +114,8 @@ class _$FlickrImageDao extends FlickrImageDao {
                   'secret': item.secret,
                   'server': item.server,
                   'farm': item.farm
-                }),
+                },
+            changeListener),
         _flickrImageEntityDeletionAdapter = DeletionAdapter(
             database,
             'FlickrImageEntity',
@@ -125,7 +126,8 @@ class _$FlickrImageDao extends FlickrImageDao {
                   'secret': item.secret,
                   'server': item.server,
                   'farm': item.farm
-                });
+                },
+            changeListener);
 
   final sqflite.DatabaseExecutor database;
 
@@ -146,6 +148,21 @@ class _$FlickrImageDao extends FlickrImageDao {
             secret: row['secret'] as String,
             server: row['server'] as String,
             farm: row['farm'] as int));
+  }
+
+  @override
+  Stream<FlickrImageEntity?> findImageById(String id) {
+    return _queryAdapter.queryStream(
+        'SELECT * FROM FlickrImageEntity WHERE id = ?1',
+        mapper: (Map<String, Object?> row) => FlickrImageEntity(
+            id: row['id'] as String,
+            title: row['title'] as String,
+            secret: row['secret'] as String,
+            server: row['server'] as String,
+            farm: row['farm'] as int),
+        arguments: [id],
+        queryableName: 'FlickrImageEntity',
+        isView: false);
   }
 
   @override

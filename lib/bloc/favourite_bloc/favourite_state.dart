@@ -13,6 +13,12 @@ class FavouriteLoadedState extends FavouriteState {
   FavouriteLoadedState(this.flickrImages);
 }
 
+class FavouriteMessageState extends FavouriteState {
+  final String message;
+
+  FavouriteMessageState(this.message);
+}
+
 class FavouriteErrorState extends FavouriteState {
   final String error;
 

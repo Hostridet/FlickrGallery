@@ -2,12 +2,12 @@ import 'package:flicker/bloc/favourite_bloc/favourite_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 import '../component/ImageView.dart';
 
 class FavouriteScreen extends StatefulWidget {
-  const FavouriteScreen({Key? key}) : super(key: key);
+  final int axisCount;
+  const FavouriteScreen({Key? key, required this.axisCount}) : super(key: key);
 
   @override
   State<FavouriteScreen> createState() => _FavouriteScreenState();
@@ -45,12 +45,12 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                 child: GridView.builder(
                   itemCount: state.flickrImages.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                    crossAxisCount: widget.axisCount,
                   ),
                   itemBuilder: (context, index) {
                     return ImageView(
                         flickrImage: state.flickrImages[index],
-                        axisCount: 2,
+                        axisCount: widget.axisCount,
                     );
                   },
                 ),

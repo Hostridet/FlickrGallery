@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 import '../../bloc/search_bloc/search_bloc.dart';
-import '../../model/FlickrImage.dart';
 
 class ViewAppBar extends AppBar {
   final BuildContext context;
@@ -22,7 +21,7 @@ class ViewAppBar extends AppBar {
       ),
       IconButton(
           onPressed: () {
-            Navigator.of(context).pushNamed("/favourite");
+            Navigator.of(context).pushNamed("/favourite", arguments: axisCount);
           },
           icon: Icon(Icons.star)
       ),

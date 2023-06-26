@@ -1,5 +1,4 @@
 import 'package:flicker/bloc/display_bloc/display_bloc.dart';
-import 'package:flicker/bloc/favourite_bloc/favourite_bloc.dart';
 import 'package:flicker/interface/component/ViewAppBar.dart';
 import 'package:flicker/interface/component/SearchAppBar.dart';
 import 'package:flutter/cupertino.dart';

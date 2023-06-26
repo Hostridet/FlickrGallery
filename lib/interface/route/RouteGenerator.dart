@@ -9,9 +9,6 @@ import 'package:flutter/material.dart';
 
 class RouteGenerator
 {
-
-
-
   Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
@@ -25,8 +22,9 @@ class RouteGenerator
           builder: (context) => const SearchScreen(),
         );
       case '/favourite':
+        int axisCount = args as int;
         return CustomPageRoute(
-          builder: (context) => const FavouriteScreen(),
+          builder: (context) => FavouriteScreen(axisCount: axisCount),
         );
       case '/view':
         FlickrImage flickrImage = args as FlickrImage;

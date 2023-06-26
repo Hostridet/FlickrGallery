@@ -24,14 +24,28 @@ class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
       }
     });
 
-    on<FavouriteUpgradeEvent>((event, emit) async {
-      if (await _favouriteRepository.isFavouriteImage(event.flickrImage)) {
-        _favouriteRepository.deleteImage(event.flickrImage);
-        emit(FavouriteMessageState("Удалено из избранного"));
-        return;
-      }
-      _favouriteRepository.insertImage(event.flickrImage);
-      emit(FavouriteMessageState("Добавлено в избранное"));
+    on<FavouriteUpdateEvent>((event, emit) async {
+      var isFavourite = await _favouriteRepository.isFavouriteImage(event.flickrImage);
+      isFavourite ? await deleteFavourite(event, emit) : await addFavourite(event, emit);
+      emit(FavouriteStatusState(!isFavourite));
+    });
+
+    on<FavouriteStatusEvent>((event, emit) async {
+      emit(FavouriteStatusState(await _favouriteRepository.isFavouriteImage(event.flickrImages)));
     });
   }
+
+  Future<void> addFavourite(FavouriteUpdateEvent event, Emitter<FavouriteState> emit) async {
+    insertImage(event.flickrImage);
+    emit(FavouriteMessageState("Добавлено в избранное"));
+  }
+
+  Future<void> deleteFavourite(FavouriteUpdateEvent event, Emitter<FavouriteState> emit) async {
+    deleteImage(event.flickrImage);
+    emit(FavouriteMessageState("Удалено из избранного"));
+  }
+
+  Future<void> insertImage(FlickrImage flickrImage) => _favouriteRepository.insertImage(flickrImage);
+
+  Future<void> deleteImage(FlickrImage flickrImage) => _favouriteRepository.deleteImage(flickrImage);
 }

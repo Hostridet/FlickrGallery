@@ -17,32 +17,41 @@ class FullScreenImage extends StatefulWidget {
 
 class _FullScreenImageState extends State<FullScreenImage> {
   FavouriteBloc favouriteBloc = FavouriteBloc();
+  Map<bool, Icon> favouriteIcons = {
+    true: const Icon(Icons.star),
+    false: const Icon(Icons.star_outline),
+  };
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => favouriteBloc,
-      child: BlocListener<FavouriteBloc, FavouriteState>(
+      create: (context) => favouriteBloc..add(FavouriteStatusEvent(widget.flickrImage)),
+      child: BlocConsumer<FavouriteBloc, FavouriteState>(
         listener: (context, state) {
           if (state is FavouriteMessageState) {
             InfoSnackBar.buildErrorLayout(context, state.message);
           }
         },
-        child: Scaffold(
-          appBar: AppBar(
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    favouriteBloc.add(FavouriteUpgradeEvent(widget.flickrImage));
-                  },
-                  icon: Icon(Icons.star),
+        builder: (context, state) {
+          if (state is FavouriteStatusState) {
+            return Scaffold(
+              appBar: AppBar(
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      favouriteBloc.add(FavouriteUpdateEvent(widget.flickrImage));
+                    },
+                    icon: favouriteIcons[state.isFavourite]!,
+                  ),
+                ],
               ),
-            ],
-          ),
-          body: PhotoView(
-            imageProvider: NetworkImage("${Config.imageUrl}${widget.flickrImage.server}/${widget.flickrImage.id}_${widget.flickrImage.secret}_b.jpg"),
-          ),
-        ),
+              body: PhotoView(
+                imageProvider: NetworkImage("${Config.imageUrl}${widget.flickrImage.server}/${widget.flickrImage.id}_${widget.flickrImage.secret}_b.jpg"),
+              ),
+            );
+          }
+          return Container();
+        },
       ),
     );
   }

@@ -24,3 +24,10 @@ class FavouriteErrorState extends FavouriteState {
 
   FavouriteErrorState(this.error);
 }
+
+class FavouriteStatusState extends FavouriteState {
+  final bool isFavourite;
+
+
+  FavouriteStatusState(this.isFavourite);
+}

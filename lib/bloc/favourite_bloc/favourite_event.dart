@@ -5,8 +5,14 @@ abstract class FavouriteEvent {}
 
 class FavouriteGetEvent extends FavouriteEvent {}
 
-class FavouriteUpgradeEvent extends FavouriteEvent {
+class FavouriteUpdateEvent extends FavouriteEvent {
   final FlickrImage flickrImage;
 
-  FavouriteUpgradeEvent(this.flickrImage);
+  FavouriteUpdateEvent(this.flickrImage);
+}
+
+class FavouriteStatusEvent extends FavouriteEvent {
+  final FlickrImage flickrImages;
+
+  FavouriteStatusEvent(this.flickrImages);
 }

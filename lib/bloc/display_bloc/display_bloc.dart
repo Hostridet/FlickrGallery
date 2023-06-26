@@ -11,6 +11,8 @@ part 'display_state.dart';
 
 class DisplayBloc extends Bloc<DisplayEvent, DisplayState> {
   final FlickRepository _flickrRepository = FlickRepository();
+  int page = 1;
+  List<FlickrImage> oldImages = [];
 
   DisplayBloc() : super(DisplayInitial()) {
     on<DisplayGetEvent>((event, emit) async {
@@ -25,11 +27,24 @@ class DisplayBloc extends Bloc<DisplayEvent, DisplayState> {
           emit(DisplayErrorState("Ничего не найдено"));
           return;
         }
+        oldImages = [];
+        oldImages.addAll(flickrImages);
         emit(DisplayLoadedState(flickrImages));
       }
       catch (e) {
         emit(DisplayErrorState("Ничего не найдено"));
       }
     });
+
+    on<DisplayPaginateEvent>((event, emit) async {
+      page++;
+      List<FlickrImage> flickrImages = [];
+      flickrImages.addAll(oldImages);
+      flickrImages.addAll(await _flickrRepository.searchPhotos(event.title, page, 40));
+      oldImages = [];
+      oldImages.addAll(flickrImages);
+      emit(DisplayLoadedState(flickrImages));
+    });
+
   }
 }

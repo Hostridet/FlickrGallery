@@ -8,3 +8,9 @@ class DisplayGetEvent extends DisplayEvent {
 
   DisplayGetEvent(this.title);
 }
+
+class DisplayPaginateEvent extends DisplayEvent {
+  final String title;
+
+  DisplayPaginateEvent(this.title);
+}

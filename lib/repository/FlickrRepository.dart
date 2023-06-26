@@ -12,7 +12,8 @@ class FlickRepository {
         "text=$title&"
         "method=flickr.photos.search&"
         "format=json&nojsoncallback=1&"
-        "page=1&per_page=40"));
+        "page=$page"
+        "&per_page=$perPage"));
     if (response.statusCode == 200) {
       final data = await json.decode(utf8.decode(response.bodyBytes));
       flickrImages.addAll((data['photos']['photo'] as List<dynamic>)

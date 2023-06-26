@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import '../../model/FlickrImage.dart';
+
 class GalleryDisplay extends StatefulWidget {
   final String title;
   final int axisCount;
@@ -15,6 +17,26 @@ class GalleryDisplay extends StatefulWidget {
 }
 
 class _GalleryDisplayState extends State<GalleryDisplay> {
+  late ScrollController scrollController;
+
+  @override
+  void initState() {
+    scrollController = ScrollController();
+    scrollController.addListener(() {
+      if (scrollController.position.maxScrollExtent == scrollController.position.pixels) {
+        BlocProvider.of<DisplayBloc>(context)
+              .add(DisplayPaginateEvent(widget.title));
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DisplayBloc, DisplayState>(
@@ -44,6 +66,7 @@ class _GalleryDisplayState extends State<GalleryDisplay> {
                   .add(DisplayGetEvent(widget.title));
             },
             child: GridView.builder(
+              controller: scrollController,
               itemCount: state.flickrImages.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: widget.axisCount,

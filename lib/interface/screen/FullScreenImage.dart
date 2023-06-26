@@ -1,4 +1,5 @@
 import 'package:flicker/bloc/favourite_bloc/favourite_bloc.dart';
+import 'package:flicker/config.dart';
 import 'package:flicker/interface/component/InfoSnackBar.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +40,7 @@ class _FullScreenImageState extends State<FullScreenImage> {
             ],
           ),
           body: PhotoView(
-            imageProvider: NetworkImage("https://live.staticflickr.com/${widget.flickrImage.server}/${widget.flickrImage.id}_${widget.flickrImage.secret}_b.jpg"),
+            imageProvider: NetworkImage("${Config.imageUrl}${widget.flickrImage.server}/${widget.flickrImage.id}_${widget.flickrImage.secret}_b.jpg"),
           ),
         ),
       ),

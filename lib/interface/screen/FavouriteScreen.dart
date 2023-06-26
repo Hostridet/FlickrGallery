@@ -48,7 +48,10 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     crossAxisCount: 2,
                   ),
                   itemBuilder: (context, index) {
-                    return ImageView(flickrImage: state.flickrImages[index]);
+                    return ImageView(
+                        flickrImage: state.flickrImages[index],
+                        axisCount: 2,
+                    );
                   },
                 ),
               );

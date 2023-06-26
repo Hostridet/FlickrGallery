@@ -73,7 +73,10 @@ class _GalleryDisplayState extends State<GalleryDisplay> {
                 crossAxisCount: widget.axisCount,
               ),
               itemBuilder: (context, index) {
-                return ImageView(flickrImage: state.flickrImages[index]);
+                return ImageView(
+                    flickrImage: state.flickrImages[index],
+                    axisCount: widget.axisCount,
+                );
               },
             ),
           );
